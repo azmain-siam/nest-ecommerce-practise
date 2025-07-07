@@ -25,7 +25,7 @@ model Category {
 }
 
 model Product {
-  id         Int         @id @default(autoincrement())
+  id         String      @id @unique @default(uuid())
   name       String
   price      Float
   stock      Int
@@ -59,7 +59,7 @@ model OrderItem {
   id        Int     @id @default(autoincrement())
   orderId   Int
   order     Order   @relation(fields: [orderId], references: [id])
-  productId Int
+  productId String
   product   Product @relation(fields: [productId], references: [id])
   quantity  Int
   price     Float
