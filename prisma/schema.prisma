@@ -13,7 +13,7 @@ model User {
   email    String  @unique
   password String
   phone    String
-  role     String  @default("user")
+  role     Role    @default(USER)
   Cart     Cart[]
   Orders   Order[]
 }
@@ -63,4 +63,9 @@ model OrderItem {
   product   Product @relation(fields: [productId], references: [id])
   quantity  Int
   price     Float
+}
+
+enum Role {
+  USER
+  ADMIN
 }
