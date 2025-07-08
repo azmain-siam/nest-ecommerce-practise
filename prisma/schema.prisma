@@ -25,13 +25,14 @@ model Category {
 }
 
 model Product {
-  id         String      @id @unique @default(uuid())
+  id         String   @id @unique @default(uuid())
   name       String
   price      Float
   stock      Int
   categoryId Int
-  category   Category    @relation(fields: [categoryId], references: [id])
-  OrderItem  OrderItem[]
+  category   Category @relation(fields: [categoryId], references: [id])
+  // OrderItem  OrderItem[]
+  Order      Order[]
 }
 
 model Cart {
@@ -48,22 +49,25 @@ model CartItem {
 }
 
 model Order {
-  id        Int         @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   userId    Int
-  user      User        @relation(fields: [userId], references: [id])
-  createdAt DateTime    @default(now())
-  OrderItem OrderItem[]
-}
-
-model OrderItem {
-  id        Int     @id @default(autoincrement())
-  orderId   Int
-  order     Order   @relation(fields: [orderId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
   productId String
-  product   Product @relation(fields: [productId], references: [id])
+  product   Product  @relation(fields: [productId], references: [id])
   quantity  Int
   price     Float
 }
+
+// model OrderItem {
+//   id        Int     @id @default(autoincrement())
+//   orderId   Int
+//   order     Order   @relation(fields: [orderId], references: [id])
+//   productId String
+//   product   Product @relation(fields: [productId], references: [id])
+//   quantity  Int
+//   price     Float
+// }
 
 enum Role {
   USER
